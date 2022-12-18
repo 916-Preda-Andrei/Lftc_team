@@ -1,53 +1,54 @@
 int char string ; [ ]
-type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simplstmt assignstmt expression term factor iostmt structstmt ifstmt forstmt condition relation
- type   ->  int
- type   ->  char
- type   -> string
- decl   ->   type   identifier ;
- arraydecl   ->   type   array_identifier ;
- array_identifier   ->   identifier [ intconst ] ;
- array_identifier   ->   identifier [ identifier ] ;
- declstmt   ->   decl ;
- declstmt   ->  arraydecl ;
- prgrm   ->   cmpdstmt
- cmpdstmt   ->  { stmtlist }
- stmtlist   ->   stmt
- stmtlist   ->   stmt ; stmtlist
- stmt   ->   simplestmt ;
- stmt   ->   structstmt
- simplstmt   ->   assignstmt ;
- simplstmt   ->   iostmt ;
- simplstmt   ->   declstmt ;
- assignstmt   ->   identifier = expression ;
- expression   ->   expression + term
- expression   ->   expression  - term
- expression   ->   term
- term   ->   term * factor
- term   ->   term / factor
- term   ->   term % factor
- term   ->   factor
- factor   ->  ( expression )
- factor   ->  idetntifier
- factor   ->  array_identifier
- iostmt   ->  read( identifier ) ;
- iostmt   ->  read( array_identifier ) ;
- iostmt   ->  write( identifier ) ;
- iostmt   ->  write( array_identifier ) ;
-
- structstmt   ->   cmpdstmt
- structstmt   ->   ifstmt
- structstmt   ->   forstmt
- ifstmt   ->  if( condition ) cmpdstmt
- ifstmt   ->  ifstmt else  cmpdstmt
- ifstmt   ->  ifstmt else  ifstmt
- forstmt   ->  for( declstmt ; condition ; simplestmt ) cmpdstmt
- condition   ->   expression  relation  expression 
- relation   ->    <=
- relation   ->    ==
- relation   ->   !=
- relation   ->    >=
- relation   ->    >
- relation   ->    <
+type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simplstmt assignstmt expression term factor iostmt structstmt ifstmt forstmt condition relation Identifier IntConstant
+{
+ type -> int
+ type -> char
+ type -> string
+ decl -> type Identifier ;
+ arraydecl -> type array_identifier ;
+ array_identifier -> Identifier [ IntConstant ] ;
+ array_identifier -> Identifier [ Identifier ] ;
+ declstmt -> decl ;
+ declstmt -> arraydecl ;
+ prgrm -> cmpdstmt
+ cmpdstmt -> { stmtlist }
+ stmtlist -> stmt
+ stmtlist -> stmt ; stmtlist
+ stmt -> simplestmt ;
+ stmt -> structstmt
+ simplstmt -> assignstmt ;
+ simplstmt -> iostmt ;
+ simplstmt -> declstmt ;
+ assignstmt -> identifier = expression ;
+ expression -> expression + term
+ expression -> expression - term
+ expression -> term
+ term -> term * factor
+ term -> term / factor
+ term -> term % factor
+ term -> factor
+ factor -> ( expression )
+ factor -> Identifier
+ factor -> array_identifier
+ factor -> IntConstant
+ iostmt -> read( identifier ) ;
+ iostmt -> read( array_identifier ) ;
+ iostmt -> write( identifier ) ;
+ iostmt -> write( array_identifier ) ;
+ structstmt -> cmpdstmt
+ structstmt -> ifstmt
+ structstmt -> forstmt
+ ifstmt -> if( condition ) cmpdstmt
+ ifstmt -> ifstmt else cmpdstmt
+ ifstmt -> ifstmt else ifstmt
+ forstmt -> for( declstmt ; condition ; simplestmt ) cmpdstmt
+ condition -> expression relation expression 
+ relation -> <=
+ relation -> ==
+ relation -> !=
+ relation -> >=
+ relation -> >
+ relation -> <
 Letter -> A
 Letter -> B
 Letter -> C
@@ -139,6 +140,3 @@ TheInteriorOfStringConstant -> epsilon
 TheInteriorOfStringConstant -> Letter TheInteriorOfStringConstant
 TheInteriorOfStringConstant -> Digit TheInteriorOfStringConstant
 TheInteriorOfStringConstant -> _ TheInteriorOfStringConstant
-
-
-
