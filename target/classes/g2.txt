@@ -1,0 +1,142 @@
+int char string ; [ ]
+type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simplstmt assignstmt expression term factor iostmt structstmt ifstmt forstmt condition relation Identifier IntConstant
+{
+ type -> int
+ type -> char
+ type -> string
+ decl -> type Identifier ;
+ arraydecl -> type array_identifier ;
+ array_identifier -> Identifier [ IntConstant ] ;
+ array_identifier -> Identifier [ Identifier ] ;
+ declstmt -> decl ;
+ declstmt -> arraydecl ;
+ prgrm -> cmpdstmt
+ cmpdstmt -> { stmtlist }
+ stmtlist -> stmt
+ stmtlist -> stmt ; stmtlist
+ stmt -> simplestmt ;
+ stmt -> structstmt
+ simplstmt -> assignstmt ;
+ simplstmt -> iostmt ;
+ simplstmt -> declstmt ;
+ assignstmt -> identifier = expression ;
+ expression -> expression + term
+ expression -> expression - term
+ expression -> term
+ term -> term * factor
+ term -> term / factor
+ term -> term % factor
+ term -> factor
+ factor -> ( expression )
+ factor -> Identifier
+ factor -> array_identifier
+ factor -> IntConstant
+ iostmt -> read( identifier ) ;
+ iostmt -> read( array_identifier ) ;
+ iostmt -> write( identifier ) ;
+ iostmt -> write( array_identifier ) ;
+ structstmt -> cmpdstmt
+ structstmt -> ifstmt
+ structstmt -> forstmt
+ ifstmt -> if( condition ) cmpdstmt
+ ifstmt -> ifstmt else cmpdstmt
+ ifstmt -> ifstmt else ifstmt
+ forstmt -> for( declstmt ; condition ; simplestmt ) cmpdstmt
+ condition -> expression relation expression 
+ relation -> <=
+ relation -> ==
+ relation -> !=
+ relation -> >=
+ relation -> >
+ relation -> <
+Letter -> A
+Letter -> B
+Letter -> C
+Letter -> D
+Letter -> E
+Letter -> F
+Letter -> G
+Letter -> H
+Letter -> I
+Letter -> J
+Letter -> K
+Letter -> L
+Letter -> M
+Letter -> N
+Letter -> O
+Letter -> P
+Letter -> Q
+Letter -> R
+Letter -> S
+Letter -> T
+Letter -> U
+Letter -> V
+Letter -> W
+Letter -> X
+Letter -> Y
+Letter -> Z
+Letter -> a
+Letter -> b
+Letter -> c
+Letter -> d
+Letter -> e
+Letter -> f
+Letter -> g
+Letter -> h
+Letter -> i
+Letter -> j
+Letter -> k
+Letter -> l
+Letter -> m
+Letter -> n
+Letter -> o
+Letter -> p
+Letter -> q
+Letter -> r
+Letter -> s
+Letter -> t
+Letter -> u
+Letter -> v
+Letter -> w
+Letter -> x
+Letter -> y
+Letter -> z
+Digit -> 0
+Digit -> 1
+Digit -> 2
+Digit -> 3
+Digit -> 4
+Digit -> 5
+Digit -> 6
+Digit -> 7
+Digit -> 8
+Digit -> 9
+NonZeroDigit -> 1
+NonZeroDigit -> 2
+NonZeroDigit -> 3
+NonZeroDigit -> 4
+NonZeroDigit -> 5
+NonZeroDigit -> 6
+NonZeroDigit -> 7
+NonZeroDigit -> 8
+NonZeroDigit -> 9
+BeginningOfIdentifier -> Letter
+BeginningOfIdentifier -> _
+Identifier -> BeginningOfIdentifier RestOfIdentifier
+RestOfIdentifier -> epsilon
+RestOfIdentifier -> Letter RestOfIdentifier
+RestOfIdentifier -> Digit RestOfIdentifier
+RestOfIdentifier -> _ RestOfIdentifier
+MaybeSign -> +
+MaybeSign -> -
+MaybeSign -> epsilon
+IntConstant -> MaybeSign PositiveNumber
+IntConstant -> 0
+PositiveNumber -> NonZeroDigit TheRestOfIntConstant
+TheRestOfIntConstant -> epsilon
+TheRestOfIntConstant -> digit TheRestOfIntConstant
+StringConstant -> " TheInteriorOfStringConstant "
+TheInteriorOfStringConstant -> epsilon
+TheInteriorOfStringConstant -> Letter TheInteriorOfStringConstant
+TheInteriorOfStringConstant -> Digit TheInteriorOfStringConstant
+TheInteriorOfStringConstant -> _ TheInteriorOfStringConstant
