@@ -4,8 +4,8 @@ type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simpl
  type   ->  char
  type   -> string
  decl   ->   type   identifier ;
- arraydecl   ->   type   identifier [ no ] ;
- array_identifier   ->   identifier [ no ] ;
+ arraydecl   ->   type   array_identifier ;
+ array_identifier   ->   identifier [ intconst ] ;
  array_identifier   ->   identifier [ identifier ] ;
  declstmt   ->   decl ;
  declstmt   ->  arraydecl ;
@@ -119,7 +119,26 @@ NonZeroDigit -> 6
 NonZeroDigit -> 7
 NonZeroDigit -> 8
 NonZeroDigit -> 9
-idetifier ->
+BeginningOfIdentifier -> Letter
+BeginningOfIdentifier -> _
+Identifier -> BeginningOfIdentifier RestOfIdentifier
+RestOfIdentifier -> epsilon
+RestOfIdentifier -> Letter RestOfIdentifier
+RestOfIdentifier -> Digit RestOfIdentifier
+RestOfIdentifier -> _ RestOfIdentifier
+MaybeSign -> +
+MaybeSign -> -
+MaybeSign -> epsilon
+IntConstant -> MaybeSign PositiveNumber
+IntConstant -> 0
+PositiveNumber -> NonZeroDigit TheRestOfIntConstant
+TheRestOfIntConstant -> epsilon
+TheRestOfIntConstant -> digit TheRestOfIntConstant
+StringConstant -> " TheInteriorOfStringConstant "
+TheInteriorOfStringConstant -> epsilon
+TheInteriorOfStringConstant -> Letter TheInteriorOfStringConstant
+TheInteriorOfStringConstant -> Digit TheInteriorOfStringConstant
+TheInteriorOfStringConstant -> _ TheInteriorOfStringConstant
 
 
 

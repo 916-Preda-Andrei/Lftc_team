@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         try {
-            Grammar grammar = new Grammar("C:\\Users\\cenan\\Desktop\\Lftc_team\\src\\g1.txt");
+            Grammar grammar = new Grammar("C:\\Users\\cenan\\Desktop\\Lftc_team\\src\\g2.txt");
             grammar.printTerminals();
             grammar.printNonTerminals();
             grammar.printProductions();
