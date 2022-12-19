@@ -14,5 +14,7 @@ public class Main {
             parser.printFollowSet();
             parser.printParseTable();
 
+            ParseOutput parseOutput = new ParseOutput(parser.getParseTable());
+            parseOutput.printToFile("src/main/resources/parser_output.txt");
     }
 }

@@ -136,4 +136,8 @@ public class Parser {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
     }
+
+    public ParseTable getParseTable() {
+        return parseTable;
+    }
 }
