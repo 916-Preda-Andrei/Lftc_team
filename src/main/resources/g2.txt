@@ -1,4 +1,4 @@
-int char string ; [ ]
+int char string ; [ ] if for * / + - ( ) % < > <= >= = ==
 type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simplstmt assignstmt expression term factor iostmt structstmt ifstmt forstmt condition relation Identifier IntConstant
 {
  type -> int
@@ -9,6 +9,7 @@ type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simpl
  array_identifier -> Identifier [ IntConstant ] ;
  array_identifier -> Identifier [ Identifier ] ;
  declstmt -> decl ;
+ assignstmt -> Identifier = expression ;
  declstmt -> arraydecl ;
  prgrm -> cmpdstmt
  cmpdstmt -> { stmtlist }
@@ -16,9 +17,10 @@ type decl arraydecl array_identifier declstmt prgrm cmpdstmt stmtlist stmt simpl
  stmtlist -> stmt ; stmtlist
  stmt -> simplestmt ;
  stmt -> structstmt
- simplstmt -> assignstmt ;
- simplstmt -> iostmt ;
- simplstmt -> declstmt ;
+ simplstmt -> assignstmt
+ simplstmt -> iostmt
+ simplstmt -> declstmt
+ simplstmt -> assignstmt
  assignstmt -> identifier = expression ;
  expression -> expression + term
  expression -> expression - term
@@ -123,20 +125,20 @@ NonZeroDigit -> 9
 BeginningOfIdentifier -> Letter
 BeginningOfIdentifier -> _
 Identifier -> BeginningOfIdentifier RestOfIdentifier
-RestOfIdentifier -> epsilon
+RestOfIdentifier -> ε
 RestOfIdentifier -> Letter RestOfIdentifier
 RestOfIdentifier -> Digit RestOfIdentifier
 RestOfIdentifier -> _ RestOfIdentifier
 MaybeSign -> +
 MaybeSign -> -
-MaybeSign -> epsilon
+MaybeSign -> ε
 IntConstant -> MaybeSign PositiveNumber
 IntConstant -> 0
 PositiveNumber -> NonZeroDigit TheRestOfIntConstant
-TheRestOfIntConstant -> epsilon
+TheRestOfIntConstant -> ε
 TheRestOfIntConstant -> digit TheRestOfIntConstant
 StringConstant -> " TheInteriorOfStringConstant "
-TheInteriorOfStringConstant -> epsilon
+TheInteriorOfStringConstant -> ε
 TheInteriorOfStringConstant -> Letter TheInteriorOfStringConstant
 TheInteriorOfStringConstant -> Digit TheInteriorOfStringConstant
 TheInteriorOfStringConstant -> _ TheInteriorOfStringConstant

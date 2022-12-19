@@ -6,6 +6,7 @@ public class Parser {
     private final Map<String, Set<String>> firstSet;
     private final Map<String, Set<String>> followSet;
     private static final Stack<List<String>> rules = new Stack<>();
+    private ParseTable parseTable;
 
 
     public Parser(String fileName) throws IOException {
@@ -13,6 +14,7 @@ public class Parser {
         this.firstSet = new HashMap<>();
         this.followSet = new HashMap<>();
         generateSets();
+        this.parseTable = new ParseTable(grammar, firstSet, followSet);
     }
 
     private void generateSets() {
@@ -115,5 +117,23 @@ public class Parser {
         return followSet;
     }
 
+    //print parser table
+    public void printParseTable() {
+        parseTable.printParseTable();
+    }
 
+
+    public void printFirstSet() {
+        System.out.println("First set:");
+        for (Map.Entry<String, Set<String>> entry : firstSet.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+
+    public void printFollowSet() {
+        System.out.println("Follow set:");
+        for (Map.Entry<String, Set<String>> entry : followSet.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
 }

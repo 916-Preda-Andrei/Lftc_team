@@ -2,15 +2,17 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
-        try {
-            Grammar grammar = new Grammar("src/main/resources/g2.txt");
+    public static void main(String[] args) throws IOException {
+
+            Grammar grammar = new Grammar("src/main/resources/g1.txt");
             grammar.printTerminals();
             grammar.printNonTerminals();
             grammar.printProductions();
             grammar.printStartSymbol();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            Parser parser = new Parser("src/main/resources/g3.txt");
+            parser.printFirstSet();
+            parser.printFollowSet();
+            parser.printParseTable();
+
     }
 }
