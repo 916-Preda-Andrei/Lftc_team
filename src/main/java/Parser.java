@@ -36,8 +36,8 @@ public class Parser {
         for (Map.Entry<String, List<List<String>>> production : grammar.getProductionsForNonterminal(nonTerminal).entrySet())
             for (List<String> rule : production.getValue()) {
                 String firstSymbol = rule.get(0);
-                if (firstSymbol.equals("."))
-                    temp.add(".");
+                if (firstSymbol.equals("ε"))
+                    temp.add("ε");
                 else if (terminals.contains(firstSymbol))
                     temp.add(firstSymbol);
                 else
@@ -64,18 +64,13 @@ public class Parser {
         for (Map.Entry<String, List<List<String>>> production : grammar.getProductionsContainingNonterminal(nonTerminal).entrySet()) {
             String productionStart = production.getKey();
             for (List<String> rule : production.getValue()) {
-                List<String> ruleConflict = new ArrayList<>();
-                ruleConflict.add(nonTerminal);
-                ruleConflict.addAll(rule);
-                if (rule.contains(nonTerminal) && !rules.contains(ruleConflict)) {
-                    rules.push(ruleConflict);
+                if (rule.contains(nonTerminal)) {
                     int indexNonTerminal = rule.indexOf(nonTerminal);
                     temp.addAll(followOperation(nonTerminal, temp, terminals, productionStart, rule, indexNonTerminal, initialNonTerminal));
                     List<String> sublist = rule.subList(indexNonTerminal + 1, rule.size());
                     if (sublist.contains(nonTerminal))
                         temp.addAll(followOperation(nonTerminal, temp, terminals, productionStart, rule, indexNonTerminal + 1 + sublist.indexOf(nonTerminal), initialNonTerminal));
 
-                    rules.pop();
                 }
             }
         }
@@ -97,9 +92,9 @@ public class Parser {
             else {
                 if (!initialNonTerminal.equals(nextSymbol)) {
                     Set<String> fists = new HashSet<>(firstSet.get(nextSymbol));
-                    if (fists.contains(".")) {
+                    if (fists.contains("ε")) {
                         temp.addAll(followOf(nextSymbol, initialNonTerminal));
-                        fists.remove(".");
+                        fists.remove("ε");
                     }
                     temp.addAll(fists);
                 }
