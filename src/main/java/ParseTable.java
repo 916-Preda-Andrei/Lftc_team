@@ -51,6 +51,10 @@ public class ParseTable {
         }
     }
 
+    public List<String> getElement(String nonTerminal, String terminal){
+        return parseTable.get(nonTerminal).get(terminal);
+    }
+
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
