@@ -50,4 +50,16 @@ public class ParseTable {
             }
         }
     }
+
+    @Override
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<String, Map<String, List<String>>> entry : parseTable.entrySet()) {
+            result.append(entry.getKey()).append(":\n");
+            for (Map.Entry<String, List<String>> rule : entry.getValue().entrySet()) {
+                result.append("\t").append(rule.getKey()).append(" -> ").append(rule.getValue()).append("\n");
+            }
+        }
+        return result.toString();
+    }
 }
