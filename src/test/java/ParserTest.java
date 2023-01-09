@@ -10,7 +10,7 @@ public class ParserTest {
 
     @BeforeAll
     static void setUp() throws IOException {
-        parser = new Parser("src/main/resources/g1.txt");
+        parser = new Parser("src/main/resources/g3.txt");
     }
 
     @Test

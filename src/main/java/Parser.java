@@ -5,8 +5,10 @@ public class Parser {
     private final Grammar grammar;
     private final Map<String, Set<String>> firstSet;
     private final Map<String, Set<String>> followSet;
-    private static final Stack<List<String>> rules = new Stack<>();
-    private ParseTable parseTable;
+    private final ParseTable parseTable;
+    private Stack<String> alpha = new Stack<>();
+    private Stack<String> beta = new Stack<>();
+    private List<Pair<String, List<String>>> pi = new ArrayList<>();
 
 
     public Parser(String fileName) throws IOException {
@@ -134,5 +136,52 @@ public class Parser {
 
     public ParseTable getParseTable() {
         return parseTable;
+    }
+
+    public List<Pair<String, List<String>>> parse(List<String> sequence) {
+        initializeStack(sequence);
+
+        while (!alpha.empty()) {
+            if (beta.empty()) {
+                System.out.println("Sequence not accepted!");
+                return new ArrayList<>();
+            }
+
+            String betaElement = beta.pop();
+            String alphaElement = alpha.peek();
+
+            List<String> rhsProduction = parseTable.getElement(betaElement, alphaElement);
+            Pair<String, List<String>> production = new Pair<>(betaElement, rhsProduction);
+            if(rhsProduction.get(0).equals("pop")){
+                alpha.pop();
+                continue;
+            }
+            if (rhsProduction.get(0).equals("acc")) {
+                alpha.pop();
+                return pi;
+            }
+
+            pi.add(production);
+            for (int i = rhsProduction.size() - 1; i >= 0; i--) {
+                if (rhsProduction.get(i).equals("ε"))
+                    continue;
+                beta.push(rhsProduction.get(i));
+            }
+
+        }
+        throw new RuntimeException("Sequence not accepted!");
+    }
+
+    private void initializeStack(List<String> sequence) {
+        alpha.clear();
+        beta.clear();
+        pi.clear();
+
+        alpha.push("$");
+        for (int i = sequence.size() - 1; i >= 0; i--)
+            alpha.push(sequence.get(i));
+
+        beta.push("$");
+        beta.push(grammar.startSymbol);
     }
 }
