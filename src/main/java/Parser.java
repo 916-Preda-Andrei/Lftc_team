@@ -150,19 +150,18 @@ public class Parser {
             String betaElement = beta.pop();
             String alphaElement = alpha.peek();
 
-            if (alphaElement.equals(betaElement)) {
-                if (!grammar.getTerminals().contains(alphaElement) && !alphaElement.equals("$")) {
-                    System.out.println("Sequence not accepted!");
-                    return new ArrayList<>();
-                }
+            List<String> rhsProduction = parseTable.getElement(betaElement, alphaElement);
+            Pair<String, List<String>> production = new Pair<>(betaElement, rhsProduction);
+            if(rhsProduction.get(0).equals("pop")){
                 alpha.pop();
                 continue;
             }
+            if (rhsProduction.get(0).equals("acc")) {
+                alpha.pop();
+                return pi;
+            }
 
-            List<String> rhsProduction = parseTable.getElement(betaElement, alphaElement);
-            Pair<String, List<String>> production = new Pair<>(betaElement, rhsProduction);
             pi.add(production);
-
             for (int i = rhsProduction.size() - 1; i >= 0; i--) {
                 if (rhsProduction.get(i).equals("ε"))
                     continue;
@@ -170,7 +169,7 @@ public class Parser {
             }
 
         }
-        return pi;
+        throw new RuntimeException("Sequence not accepted!");
     }
 
     private void initializeStack(List<String> sequence) {

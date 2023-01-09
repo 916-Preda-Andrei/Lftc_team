@@ -13,7 +13,7 @@ public class Main {
         grammar.printNonTerminals();
         grammar.printProductions();
         grammar.printStartSymbol();
-        Parser parser = new Parser("src/main/resources/g3.txt");
+        Parser parser = new Parser("src/main/resources/g1.txt");
         parser.printFirstSet();
         parser.printFollowSet();
         parser.printParseTable();
@@ -21,7 +21,7 @@ public class Main {
         ParseOutput parseOutput = new ParseOutput(parser.getParseTable());
         parseOutput.printToFile("src/main/resources/parser_output.txt");
 
-        checkParseSequence("src/main/resources/g3.txt", "src/main/resources/seq.txt", "src/main/resources/out1.txt");
+        checkParseSequence("src/main/resources/g1.txt", "src/main/resources/seq.txt", "src/main/resources/out1.txt");
     }
 
     private static void checkParseSequence(String grammarFile, String sequenceFile, String outputFile) throws IOException {
@@ -29,6 +29,7 @@ public class Main {
         List<String> sequence = obtainSequence(sequenceFile);
         Parser parser = new Parser(grammarFile);
         List<Pair<String, List<String>>> result = parser.parse(sequence);
+        System.out.println("Sequence accepted!");
 
         writeToFile(result, outputFile);
 
